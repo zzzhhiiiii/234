@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>My First Page</title>
+        <link rel="stylesheet" href="zx.css"/>
+         
+        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.4.js">
+        </script>
+        
+    </head>
+    <body>
+        <h1 td valign="center" align="center">電工實驗 Canvas</td></h1>
+        <div class="container">
+            <div class="number">
+                <div class="estimate">
+
+                </div>
+                <div>0</div><div>1</div>
+                <div>2</div><div>3</div>
+                <div>4</div><div>5</div>
+                <div>6</div><div>7</div>
+                <div>8</div><div>9</div>
+            </div>  
+            <div class="warp">
+                <div id="app">
+                    <ul class="colorGroups">
+                    Color： <input type="radio" id="red" value="#D60B18" v-model="color" :checked="color==='#D60B18'"
+                                   style="display:none"/>
+                            <label for="red"></label>
+                            <input type="radio" id="brown" value="#92531C" v-model="color" :checked="color==='#92531C'"
+                                   style="display:none"/>
+                            <label for="brown"></label>
+                            <input type="radio" id="yellow" value="#F6BD57" v-model="color" :checked="color==='#F6BD57'"
+                                   style="display:none"/>
+                            <label for="yellow"></label>
+                            <input type="radio" id="blue" value="#1298DB" v-model="color" :checked="color==='#1298DB'"
+                                   style="display:none"/>
+                            <label for="blue"></label>
+                            <input type="radio" id="white" value="white" v-model="color" :checked="color==='white'"
+                                   style="display:none"/>
+                            <label for="white"></label>
+                            <input type="radio" id="black" value="black" v-model="color" :checked="color==='black'"
+                                   style="display:none"/>
+                            <label for="black"></label>
+                    </ul>
+                    <div class="width">Stroke：<input id="width" type="range" min="0" max="20" v-model="width"/><p>{{width}}px</p></div>
+                </div>
+                <canvas class="canvas" id="canvas"></canvas>
+                <canvas id="hiddenCanvas" width="28" height="28"></canvas>
+                <button type="button" class="Clear" > Clear</button>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/onnxjs/dist/onnx.min.js"></script>
+        <script src="zx.js"></script>
+        
+          
+    </body>        
+    
+</html>
