@@ -1,10 +1,10 @@
 import torch
+from torchvision import datasets, transforms
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torchsummary import summary
-from model import Net
-from torchvision import datasets, transforms
+from mnist.model import Net
 from tqdm import tqdm
 
 train_transform = transforms.Compose([
@@ -47,10 +47,13 @@ optimizer = optim.Adam(model.parameters())
 
 summary(model, (1, 28, 28))
 
+
+#train model
+
 model.train()
 best_acc = 0.
 
-for epoch in range(20):
+for epoch in range(10):
 
     train_loss = 0
     correct = 0
@@ -81,9 +84,11 @@ for epoch in range(20):
 
     print('Train Epoch: {} \t Loss: {:.4f} Accuracy: {:.4f}'.format(
         str(epoch+1), train_loss, train_acc))
-    
+
+    #model to onnx    
     model.eval()
-    dummy_input = torch.zeros((1,1,28,28))
-    torch.onnx.export(model,dummy_input,'onnx_model.onnx',verbose = True)
+    dummy_input = torch.zeros((1, 1, 28, 28))
+    torch.onnx.export(model, dummy_input,
+                    'onnx_model.onnx', verbose=True)
 
 torch.save(model.state_dict(), "model.pt")
