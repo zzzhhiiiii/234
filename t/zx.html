@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>電工實驗_期末專案</title>
         <link rel="stylesheet" href="zx.css">
@@ -16,53 +17,63 @@
             <div class="number">
                 <div class="prediction">
                     <div class="num" id="num-0">0</div>
-                    <div class="label"></div>
-                    <div class="bar" id="bar-0"></div>
+                    <div class="label">
+                        <div class="bar" id="bar-0"></div>
+                    </div>
                 </div>
                 <div class="prediction">
                     <div class="num" id="num-1">1</div>
-                    <div class="label"></div>
-                    <div class="bar" id="bar-1"></div>
+                    <div class="label">
+                        <div class="bar" id="bar-1"></div>
+                    </div>
                 </div>
                 <div class="prediction">
                     <div class="num" id="num-2">2</div>
-                    <div class="label"></div>
-                    <div class="bar" id="bar-2"></div>
+                    <div class="label">
+                        <div class="bar" id="bar-2"></div>
+                    </div>
                 </div>
                 <div class="prediction">
                     <div class="num" id="num-3">3</div>
-                    <div class="label"></div>
-                    <div class="bar" id="bar-3"></div>
+                    <div class="label">
+                        <div class="bar" id="bar-3"></div>
+                    </div>
                 </div>
                 <div class="prediction">
                     <div class="num" id="num-4">4</div>
-                    <div class="label"></div>
-                    <div class="bar" id="bar-4"></div>
+                    <div class="label">
+                        <div class="bar" id="bar-4"></div>
+                    </div>
                 </div>
                 <div class="prediction">
                     <div class="num" id="num-5">5</div>
-                    <div class="label"></div>
-                    <div class="bar" id="bar-5"></div>
+                    <div class="label">
+                        <div class="bar" id="bar-5"></div>
+                    </div>
                 </div>
                 <div class="prediction">
                     <div class="num" id="num-6">6</div>
-                    <div class="label"></div>
-                    <div class="bar" id="bar-6"></div>
+                    <div class="label">
+                        <div class="bar" id="bar-6"></div>
+                    </div>
                 </div>
                 <div class="prediction">
                     <div class="num" id="num-7">7</div>
-                    <div class="label"></div>
-                    <div class="bar" id="bar-7"></div>
+                    <div class="label">
+                        <div class="bar" id="bar-7"></div>
+                    </div>
                 </div>
                 <div class="prediction">
                     <div class="num" id="num-8">8</div>
-                    <div class="label"></div>
-                    <div class="bar" id="bar-8"></div>
+                    <div class="label">
+                        <div class="bar" id="bar-8"></div>
+                    </div>
                 </div>
                 <div class="prediction">
                     <div class="num" id="num-9">9</div>
-                    <div class="label"></div>
-                    <div class="bar" id="bar-9"></div>
+                    <div class="label">
+                        <div class="bar" id="bar-9"></div>
+                    </div>
                 </div>
             </div>  
             <div class="warp">
@@ -71,11 +82,11 @@
                 </div>
                 <div id="app">
                 <div class="width">
-                    Stroke：<input id="width" type="range" min="1" max="20" v-model="width"/><p>{{width}}px</p>
+                    Stroke：<input id="width" type="range" min="5" max="25" v-model="width"/><p>{{width}}px</p>
                 </div>
             </div>
-                <canvas class="canvas" id="canvas"width="400" height="400"></canvas>
-                <canvas id="hiddenCanvas" width="28" height="28"></canvas>
+                <canvas class="canvas" id="canvas"width="400" height="400" will-read-frequently></canvas>
+                <canvas id="hiddenCanvas" width="28" height="28" style="width: 28px; height: 28px; background-color: white; display: none;" ></canvas>
                 <button type="button" class="clear" id="clear">Clear</button>
             </div>
         </div>
