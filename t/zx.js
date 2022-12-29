@@ -53,12 +53,12 @@ async function updatePredictions() {
         num.style.textAlign = "center";
         bar.style.height = `${predictions[i] * 70}px`;
         if (predictLabel == i) {
-            bar.style.backgroundColor = "#7c85a1";
+            bar.style.backgroundColor = "#aabcd0";
             num.style.fontWeight = "bold";
             num.style.fontSize = "54px"; // 調小字體大小
         }
         else {
-            bar.style.backgroundColor = "#8d98b7";
+            bar.style.backgroundColor = "#e1eef0";
             num.style.fontWeight = "";
             num.style.fontSize = "";
         }
@@ -194,24 +194,29 @@ Color.addEventListener('change', (e) => {
     ctx.strokeStyle = e.target.value
 })
 
-$(function(){
-    var r = $('input');
-    r.on('mouseenter',function(){
-      var p = r.val();
-      r.on('click',function(){
-        p = r.val();
-        bg(p);
-      });
-      r.on('mousemove',function(){
-        p = r.val();
-        bg(p);
-      });
+//Save Picture
+const downloadBtn = document.getElementById('download-btn');
+  downloadBtn.addEventListener('click', () => {
+    html2canvas(document.getElementById('my-element')).then((canvas) => {
+      // 將 canvas 轉成圖片
+      const img = canvas.toDataURL();
+      // 建立 a 標籤
+      const a = document.createElement('a');
+      // 設定 a 標籤的 href 屬性為圖片的 URL
+      a.href = img;
+      // 設定 a 標籤的 download 屬性為圖片檔名
+      a.download = 'page.png';
+      // 觸發 a 標籤的點擊事件
+      a.click();
     });
-    function bg(n){
-        r.css({
-          'background-image':'-webkit-linear-gradient(left ,#f22 0%,#f22 '+n+'%,#fff '+n+'%, #fff 100%)'
-        });
-    }
   });
-
    
+const audio = document.getElementById('player');
+
+audio.addEventListener('ended', function() {
+  console.log('The music has ended');
+});
+
+audio.addEventListener('timeupdate', function() {
+  console.log('The music is playing at ' + audio.currentTime);
+});

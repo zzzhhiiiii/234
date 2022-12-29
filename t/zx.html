@@ -7,75 +7,83 @@
         <title>電工實驗_期末專案</title>
         <link rel="stylesheet" href="zx.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.30/vue.global.min.js"></script>
+        <script src="https://unpkg.com/html2canvas@1.0.0-alpha.12/dist/html2canvas.js"></script>
+
     </head>
-    <body>
+    <body id="my-element">
         <div class="title"><h1> MNIST  Canvas  ✏️</h1></div>
         <!--<span class="line"></span>-->
         <div class="container">
-        <div class="TEST">   
-            <div class="number1">
-                <div class="prediction">
-                    <div class="num" id="num-0">0</div>
-                    <div class="bar" id="bar-0"></div>
-                </div>
-            </div>    
-            <div class="number2">    
-                <div class="prediction">
-                    <div class="num" id="num-1">1</div>
-                    <div class="bar" id="bar-1"></div>
-                </div>
-                <div class="prediction">
-                    <div class="num" id="num-2">2</div>
-                    <div class="bar" id="bar-2"></div>
+            <div class="C1">   
+                <div class="R1">
+                    <div class="prediction">
+                        <div class="num" id="num-0">0</div>
+                        <div class="bar" id="bar-0"></div>
+                    </div>
+                    <button class="download-btn" id="download-btn">Save Page</button>
                 </div>    
-                <div class="prediction">
-                    <div class="num" id="num-3">3</div>
-                    <div class="bar" id="bar-3"></div> 
+                <div class="R2">    
+                    <div class="prediction">
+                        <div class="num" id="num-1">1</div>
+                        <div class="bar" id="bar-1"></div>
+                    </div>
+                    <div class="prediction">
+                        <div class="num" id="num-2">2</div>
+                        <div class="bar" id="bar-2"></div>
+                    </div>    
+                    <div class="prediction">
+                        <div class="num" id="num-3">3</div>
+                        <div class="bar" id="bar-3"></div> 
+                    </div>
                 </div>
-            </div>
-            <div class="number3">    
-                <div class="prediction">
-                    <div class="num" id="num-4">4</div>
-                    <div class="bar" id="bar-4"></div>    
+                <div class="R3">    
+                    <div class="prediction">
+                        <div class="num" id="num-4">4</div>
+                        <div class="bar" id="bar-4"></div>    
+                    </div>
+                    <div class="prediction">
+                        <div class="num" id="num-5">5</div>
+                        <div class="bar" id="bar-5"></div>
+                    </div>
+                    <div class="prediction">
+                        <div class="num" id="num-6">6</div>
+                        <div class="bar" id="bar-6"></div> 
+                    </div>
                 </div>
-                <div class="prediction">
-                    <div class="num" id="num-5">5</div>
-                    <div class="bar" id="bar-5"></div>
+                <div class="R4">
+                    <div class="prediction">
+                        <div class="num" id="num-7">7</div>
+                        <div class="bar" id="bar-7"></div>  
+                    </div>
+                    <div class="prediction">
+                        <div class="num" id="num-8">8</div>
+                        <div class="bar" id="bar-8"></div>
+                    </div>
+                    <div class="prediction">
+                        <div class="num" id="num-9">9</div>
+                        <div class="bar" id="bar-9"></div>
+                    </div>
                 </div>
-                <div class="prediction">
-                    <div class="num" id="num-6">6</div>
-                    <div class="bar" id="bar-6"></div> 
-                </div>
-            </div>
-            <div class="number4">
-                <div class="prediction">
-                    <div class="num" id="num-7">7</div>
-                    <div class="bar" id="bar-7"></div>  
-                </div>
-                <div class="prediction">
-                    <div class="num" id="num-8">8</div>
-                    <div class="bar" id="bar-8"></div>
-                </div>
-                <div class="prediction">
-                    <div class="num" id="num-9">9</div>
-                    <div class="bar" id="bar-9"></div>
-                </div>
-            </div>
-        </div>  
-            <div class="warp">
+            </div>  
+            <div class="C2">
                     <div>
-                        Color：<input type="color" id="Color" style="border-radius: 5px; border-width:1px; border-COLOR:rgb(177, 176, 190)"/>
+                        Color：<input type="color" id="Color" style="border-radius: 5px; border-width:1px; border-COLOR:rgb(177, 176, 190); cursor: pointer;"/>
                     </div>
                 <div id="app">
                     <div class="width">
-                        Stroke：<input id="width" type="range" min="10" max="20" v-model="width"/><p>{{width}}px</p>
+                        Stroke：<input id="width" type="range" style='cursor: pointer;' min="10" max="20" v-model="width"/><p>{{width}}px</p>
                     </div>
                 </div>
                 <canvas class="canvas" id="canvas"width="400" height="400" will-read-frequently></canvas>
                 <canvas id="hiddenCanvas" width="28" height="28" style="width: 28px; height: 28px; background-color: white; display: none;" ></canvas>
-            </div>    
+            </div>
+            <div class="C3">    
                 <button type="button" class="clear" id="clear">C l e a r</button>
-            
+                <audio controls loop>
+                    <source src="voice_254274.m4a" type="audio/mpeg">
+                    <p>Your browser does not support the audio element.</p>
+                </audio>
+            </div>    
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/onnxjs/dist/onnx.min.js"></script>

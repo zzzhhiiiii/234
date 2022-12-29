@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "html2canvas": "^1.4.1",
     "onnxjs": "^0.1.8",
     "vue": "^3.2.45"
   }

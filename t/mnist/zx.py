@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torchsummary import summary
-from mnist.model import Net
+from model import Net
 from tqdm import tqdm
 
 train_transform = transforms.Compose([
