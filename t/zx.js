@@ -50,14 +50,17 @@ async function updatePredictions() {
     for (let i = 0; i < predictions.length; i++) {
         const bar = document.getElementById(`bar-${i}`);
         const num = document.getElementById(`num-${i}`);
-        bar.style.width = `${predictions[i] * 200}px`;
+        num.style.textAlign = "center";
+        bar.style.height = `${predictions[i] * 70}px`;
         if (predictLabel == i) {
-            bar.style.backgroundColor = "#87A2FB";
+            bar.style.backgroundColor = "#7c85a1";
             num.style.fontWeight = "bold";
+            num.style.fontSize = "54px"; // 調小字體大小
         }
         else {
-            bar.style.backgroundColor = "#eeeeee";
+            bar.style.backgroundColor = "#8d98b7";
             num.style.fontWeight = "";
+            num.style.fontSize = "";
         }
     }
 }
@@ -74,8 +77,15 @@ const vm = Vue.createApp({
       return {
         width: 15
       }
+    },
+    mounted() {
+      for (let i = 0; i < 10; i++) {
+        const num = document.getElementById(`num-${i}`);
+        num.style.textAlign = "center";
+      }
     }
   }).mount('#app');
+  
 
 let range = document.getElementById("width");
 let lWidth = 15;
@@ -110,7 +120,7 @@ function Writing(e) {
 
     x1 = x2;
     y1 = y2;
-
+    updatePredictions();
 }
 
 //END
@@ -130,7 +140,7 @@ function clearBar() {
     for (let i = 0; i < 10; i++) {
         const bar = document.getElementById(`bar-${i}`);
         console.log(bar);
-        bar.style.width = "0px";
+        bar.style.height = "0px";
     }
 }
 
@@ -139,6 +149,7 @@ function clearNumHighlight() {
         const num = document.getElementById(`num-${i}`);
         num.style.color = "#000000";
         num.style.fontWeight = "";
+        num.style.fontSize = "";
     }
 }
 
@@ -177,7 +188,7 @@ loadingModelPromise.then(() => {
       
 });
 
-
+// Color
 const Color = document.getElementById('Color')
 Color.addEventListener('change', (e) => {
     ctx.strokeStyle = e.target.value
@@ -203,3 +214,4 @@ $(function(){
     }
   });
 
+   

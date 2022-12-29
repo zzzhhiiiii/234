@@ -1,15 +1,17 @@
-const CANVAS_SIZE = 280;    //表示原畫布的尺寸
-const CANVAS_SCALE = 0.1;   //表示要縮放的比例
-const INFERENCE_SIZE = 28;  //表示調整後的影像尺寸
+const CANVAS_SIZE = 400;
+const CANVAS_SCALE = 0.07;
+const INFERENCE_SIZE = 28;
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const options = { willReadFrequently: true };
+const canvas = document.getElementById("canvas"); 
+const ctx = canvas.getContext("2d", options);
 const rect = canvas.getBoundingClientRect();
 
 const hiddenCanvas = document.getElementById("hiddenCanvas");
-const hiddenCanvasCtx = hiddenCanvas.getContext("2d");
+const hiddenCanvasCtx = hiddenCanvas.getContext("2d", options);
 hiddenCanvasCtx.scale(CANVAS_SCALE, CANVAS_SCALE);
 
+const hasTouchEvent = 'ontouchstart' in window ? true : false;
 const sess = new onnx.InferenceSession();
 const loadingModelPromise = sess.loadModel("onnx_model.onnx");
 
@@ -45,30 +47,18 @@ async function updatePredictions() {
     const maxPrediction = Math.max(...predictions);
     const predictLabel = predictions.findIndex((n) => n == maxPrediction);
     console.log(predictLabel);
-}
-
-
-
-function clearArea() {
-    // Use the identity matrix while clearing the canvas
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    hiddenCanvasCtx.setTransform(CANVAS_SCALE, 0, 0, CANVAS_SCALE, 0, 0);
-    hiddenCanvasCtx.clearRect(0, 0, hiddenCanvasCtx.canvas.width / CANVAS_SCALE, hiddenCanvasCtx.canvas.height / CANVAS_SCALE);
-}
-
-function clearBar() {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < predictions.length; i++) {
         const bar = document.getElementById(`bar-${i}`);
-        bar.style.width = "0px";
-    }
-}
-
-function clearNumHighlight() {
-    for (let i = 0; i < 10; i++) {
         const num = document.getElementById(`num-${i}`);
-        num.style.color = "#000000";
-        num.style.fontWeight = "";
+        bar.style.width = `${predictions[i] * 330}px`;
+        if (predictLabel == i) {
+            bar.style.backgroundColor = "#RED";
+            num.style.fontWeight = "bold";
+        }
+        else {
+            bar.style.backgroundColor = "#7c85a1";
+            num.style.fontWeight = "";
+        }
     }
 }
 
@@ -79,16 +69,31 @@ function getPos(x, y) {
     }
 }
 
+const vm = Vue.createApp({
+    data () {
+      return {
+        width: 15
+      }
+    }
+  }).mount('#app');
+
+let range = document.getElementById("width");
+let lWidth = 15;
+range.onchange = function(){
+    lWidth = this.value;
+};
+
 function startWrite(e) {
     isMouseActive = true; //滑鼠按下開始
     ctx.lineCap = 'round'
     ctx.lineJoin = "round";
-    //this.ctx.lineWidth = this.width ; //設定畫筆寬度
+    ctx.lineWidth = lWidth ; //設定畫筆寬度
     var pos = getPos(e.clientX, e.clientY);
     x1 = pos.x;
     y1 = pos.y;
 }
 
+// Actual drawing.
 function Writing(e) {
 
     if (!isMouseActive) {
@@ -98,7 +103,6 @@ function Writing(e) {
     x2 = pos.x;
     y2 = pos.y;
 
-		// Actual drawing.
     ctx.beginPath(); //開始路徑
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2); //畫路徑到新的位置
@@ -114,28 +118,88 @@ function endWrite(e) {
     isMouseActive = false;
 }
 
+function clearArea() {
+    // Use the identity matrix while clearing the canvas
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    hiddenCanvasCtx.setTransform(CANVAS_SCALE, 0, 0, CANVAS_SCALE, 0, 0);
+    hiddenCanvasCtx.clearRect(0, 0, hiddenCanvasCtx.canvas.width / CANVAS_SCALE, hiddenCanvasCtx.canvas.height / CANVAS_SCALE);
+}
+
+function clearBar() {
+    for (let i = 0; i < 10; i++) {
+        const bar = document.getElementById(`bar-${i}`);
+        console.log(bar);
+        bar.style.width = "0px";
+    }
+}
+
+function clearNumHighlight() {
+    for (let i = 0; i < 10; i++) {
+        const num = document.getElementById(`num-${i}`);
+        num.style.color = "#000000";
+        num.style.fontWeight = "";
+    }
+}
+
 // jQuery document ready
 loadingModelPromise.then(() => {
     
     $("#clear").click(() => {
         clearArea();
         clearBar();
-        clearNumHighlight();
+        clearNumHighlight(); 
     });
 
-    canvas.addEventListener("mousedown", startWrite);
-    canvas.addEventListener("mousemove", Writing);
-    canvas.addEventListener("mouseup", endWrite);
+    canvas.addEventListener("mouseup", updatePredictions);
+
+    if(hasTouchEvent){
+        canvas.ontouchstart = function(e){
+          startWrite(e);
+        }
+        canvas.ontouchmove = function(e){
+          Writing(e);
+        }
+        canvas.ontouchend = function(e){
+          endWrite(e);
+        }
+      } else {
+        canvas.onmousedown = function(e){
+          startWrite(e);
+        }
+        canvas.onmousemove = function(e){
+          Writing(e);
+        }
+        canvas.onmouseup = function(e){
+          endWrite(e);
+        }
+      }
+      
 });
 
 
-$('.color input').change(function(){
-    r = $('#red').val();
-    changeColor(r);
-    //取出input中的數值
+const Color = document.getElementById('Color')
+Color.addEventListener('change', (e) => {
+    ctx.strokeStyle = e.target.value
+})
+
+$(function(){
+    var r = $('input');
+    r.on('mouseenter',function(){
+      var p = r.val();
+      r.on('click',function(){
+        p = r.val();
+        bg(p);
+      });
+      r.on('mousemove',function(){
+        p = r.val();
+        bg(p);
+      });
+    });
+    function bg(n){
+        r.css({
+          'background-image':'-webkit-linear-gradient(left ,#f22 0%,#f22 '+n+'%,#fff '+n+'%, #fff 100%)'
+        });
+    }
   });
 
-  function changeColor(r){
-    ctx.strokeStyle = "r("+r+")"  
-    //將數值寫入到 strokeStyle內即可
-  };
