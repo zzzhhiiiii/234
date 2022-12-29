@@ -1,32 +1,33 @@
 MNIST model Training
 ========================
-* Train the model to be deployed in web page.
-* Convert the model to onnx format.
+Train the model and Convert the model to onnx format.
 
 
 Install
 -------------------------
-* 新建環境
+* Create New Environment
 ```````````````````````````````````
-conda create -n pytorch python=3.8.3
+conda create -n <env_name> python=3.8.3
 ```````````````````````````````````
-* 進入環境
+* Switch Environment
 ````````````````````````````````````
-conda activate pytorh
+conda activate <env_name>
 `````````````````````````````````````
-* 安裝pytorch
+* Install Pytorch
 ````````````````````````````````````
 conda install pytorch==1.8.0 torchvision==0.9.0 cpuonly -c pytorch
 ````````````````````````````````````
-* 安裝其他套件
+*  Install Package
 `````````````````````````````````````
 pip install torchsummary PyYAML tqdm 
 `````````````````````````````````````
 
-Train Model
--------------------------
-> zx.py
-
 Define Model
 -------------------------
 > model.py
+
+Train Model
+-------------------------
+Train the model and Convert the model to onnx format.
+> zx.py
+
