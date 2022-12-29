@@ -9,14 +9,13 @@ Introduction
 * 中間 - 為畫布，上方可供更改畫筆顏色及粗細。
 * 右側 - 為清除按鈕及音樂播放器。
 
-R
+Run in local
 ----------------------------------------------
-This project uses node and npx. Go check them out if you don't have them locally installed.
 * `npx serve`
 
 Training
 ----------------------------------------------
-> See the `README.md` inside `mnist` folder.
+See the `README.md` inside `mnist` folder.
 
 
 
