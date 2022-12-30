@@ -5,9 +5,9 @@ Introduction
 ----------------------------------------------
 ![image](https://user-images.githubusercontent.com/114738356/209977880-9678c54c-0266-494f-a164-3b2be9cf5b82.png)
 
-* 左側 - 為預測結果的展示，點擊右上的按鈕可儲存成圖片。
-* 中間 - 為畫布，上方可供更改畫筆顏色及粗細。
-* 右側 - 為清除按鈕及音樂播放器。
+* On the left - for displaying the prediction results, click the button in the top right to save as an image.
+* In the middle - for the canvas, the top allows you to change the color and stroke.
+* On the right - for the clear button and music player.
 
 Run in local
 ----------------------------------------------
